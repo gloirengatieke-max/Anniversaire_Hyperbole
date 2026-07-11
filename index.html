@@ -82,11 +82,12 @@
             letter-spacing: 3px;
         }
 
-         .emojis-festifs {
-            -webkit-text-fill-color: initial; /* Annule la transparence pour les émojis */
+        .emojis-festifs {
+            -webkit-text-fill-color: initial; 
             filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.15));
-            font-size: 3.8rem; /* Légèrement plus grands pour le style */
-            vertical-align: middle;}
+            font-size: 3.8rem; 
+            vertical-align: middle;
+        }
 
         .age-badge {
             font-size: 5rem;
@@ -170,7 +171,7 @@
             font-weight: bold;
         }
 
-        /* Zone Vidéo Polaroid (Laissée vide) */
+        /* Zone Vidéo Polaroid */
         .polaroid {
             background: white;
             padding: 18px 18px 30px 18px;
@@ -178,33 +179,6 @@
             transform: rotate(-1.5deg);
             margin-top: 20px;
             border: 1px solid #e2e2e2;
-        }
-        .video-placeholder {
-            width: 100%;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
-            background: linear-gradient(135deg, #2b2b2b, #111111);
-            position: relative;
-            border-radius: 4px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
-        }
-        .placeholder-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #aaa;
-            width: 90%;
-        }
-        .placeholder-content .icon {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.6; }
         }
         .polaroid-caption {
             text-align: center;
@@ -227,23 +201,84 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Formulaire dynamique */
-        textarea {
-            width: 100%;
-            height: 100px;
+        /* Style du message fixe */
+        .message-box-unique {
+            background: linear-gradient(135deg, #fffcf5, #fff5e6);
+            border: 2px solid #d4af37;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #553c0e;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            white-space: pre-line;
+        }
+
+        /* Zone jeu */
+        .game-zone {
+            margin-top: 20px;
+            background: #fffcf9;
+            border: 2px solid #ffdfb9;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .crypto-box {
+            font-family: 'Courier New', Courier, monospace;
+            background: #1a1a24;
+            color: #a1ff0a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            border-left: 4px solid #ff6200;
+        }
+        .game-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .game-input {
+            flex: 1;
             padding: 12px;
             border: 2px solid #ffdfb9;
-            border-radius: 10px;
-            resize: none;
-            box-sizing: border-box;
-            background-color: #fffaf5;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            font-size: 1rem;
         }
-        textarea:focus {
+        .game-input:focus {
             outline: none;
             border-color: #d4af37;
-            background-color: #ffffff;
         }
+        .game-feedback {
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            min-height: 20px;
+        }
+
+        /* Zone de génération d'art finale */
+        #art-generator-container {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 1.2s ease-out;
+        }
+        #art-canvas {
+            background: #050508;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212, 175, 55, 0.2);
+            max-width: 100%;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
         button {
             background: linear-gradient(45deg, #ff2a6d, #ff6200);
             color: white;
@@ -253,8 +288,6 @@
             cursor: pointer;
             font-size: 1rem;
             font-weight: bold;
-            margin-top: 12px;
-            width: 100%;
             transition: all 0.2s ease;
             box-shadow: 0 5px 15px rgba(255, 42, 109, 0.4);
         }
@@ -276,28 +309,23 @@
 </head>
 <body>
 
-    <!-- Système de confettis en arrière-plan -->
     <canvas id="confetti-canvas"></canvas>
 
-    <!-- Guirlande festive -->
     <ul class="guirlande">
         <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
     </ul>
 
-    <!-- En-tête -->
     <header>
          <h1 class="gold-title">
             <span class="gold-text">Joyeux Anniversaire Hyperbole</span>
-             <span class="emojis-festifs">🤩🖊️🎤🎼🎹!</span>
+             <span class="emojis-festifs">🤩 🖊️ 🎤 🎼 🎹!</span>
         </h1>
         <div class="age-badge">20 ANS</div>
         <p style="font-size: 1.3rem; color: #755118; margin-top: 10px; font-weight: bold;">✨ Bienvenue dans l'ère de la vingtaine ! ✨</p>
     </header>
 
-    <!-- Conteneur central -->
     <main class="board-container">
 
-        <!-- Bloc 1 : Compte à Rebours -->
         <section class="card">
             <h2>⏳ Compte à rebours festif</h2>
             <p>Le grand jour est prévu pour le 18 juillet ! Restez connectés :</p>
@@ -309,7 +337,6 @@
             </div>
         </section>
 
-        <!-- Bloc 2 : Clin d'œil Code Informatique -->
         <section class="card">
             <h2>💻 DevZone // Terminal 20</h2>
             <p>Initialisation du script d'anniversaire pour le profil étudiant :</p>
@@ -320,67 +347,72 @@
 }</code></pre>
         </section>
 
-        <!-- Bloc 3 : Emplacement Souvenir Polaroid Valaissé Vide -->
-       <section class="card" style="grid-column: 1 / -1;"> 
-    <h2>🎬 Les Souvenirs de Terminale</h2>
-    <p>Un retour en arrière mémorable avec la TC ! 🔥</p>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
-        
-        <div class="polaroid" style="transform: rotate(1deg); margin-top: 0;">
-            <div style="width: 100%; border-radius: 4px; overflow: hidden; background: #000; box-shadow: inset 0 0 10px rgba(0,0,0,0.8);">
-                <video controls style="width: 100%; display: block; max-height: 250px; object-fit: contain;">
-                    <source src="Souvenir TC 21.21.30.mp4" type="video/mp4">
-                    Votre navigateur ne supporte pas la lecture de vidéos.
-                </video>
-            </div>
-            <div class="polaroid-caption">MDR interprète! 📜</div>
-        </div>
+        <section class="card" style="grid-column: 1 / -1;"> 
+            <h2>🎬 Les Souvenirs de Terminale</h2>
+            <p>Un retour en arrière mémorable avec la TC ! 🔥</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div class="polaroid" style="transform: rotate(1deg); margin-top: 0;">
+                    <div style="width: 100%; border-radius: 4px; overflow: hidden; background: #000; box-shadow: inset 0 0 10px rgba(0,0,0,0.8);">
+                        <video controls style="width: 100%; display: block; max-height: 250px; object-fit: contain;">
+                            <source src="Souvenir TC 21.21.30.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                    <div class="polaroid-caption">MDR interprète ! 📜</div>
+                </div>
 
-        <div class="polaroid" style="transform: rotate(-2deg); margin-top: 0;">
-            <div style="width: 100%; padding-bottom: 125%; background-image: url('WhatsApp Image 2026-05-17 at 00.34.44.jpeg'); background-size: cover; background-position: center; border-radius: 4px; background-repeat: no-repeat;">
-            </div>
-            <div class="polaroid-caption">La petite bande  ! 🤙✨</div>
-        </div>
+                <div class="polaroid" style="transform: rotate(-2deg); margin-top: 0;">
+                    <div style="width: 100%; padding-bottom: 125%; background-image: url('WhatsApp Image 2026-05-17 at 00.34.44.jpeg'); background-size: cover; background-position: center; border-radius: 4px; background-repeat: no-repeat;"></div>
+                    <div class="polaroid-caption">La bande au complet ! 🤙✨</div>
+                </div>
 
-        <div class="polaroid" style="transform: rotate(1.5deg); margin-top: 0;">
-            <div style="width: 100%; padding-bottom: 125%; background-image: url('WhatsApp Image 2026-05-17 at 00.35.14.jpeg'); background-size: cover; background-position: center; border-radius: 4px; background-repeat: no-repeat;">
+                <div class="polaroid" style="transform: rotate(1.5deg); margin-top: 0;">
+                    <div style="width: 100%; padding-bottom: 125%; background-image: url('WhatsApp Image 2026-05-17 at 00.35.14.jpeg'); background-size: cover; background-position: center; border-radius: 4px; background-repeat: no-repeat;"></div>
+                    <div class="polaroid-caption">Toujours le smile ! 👍🎒</div>
+                </div>
             </div>
-            <div class="polaroid-caption">Toujours le smile ! 👍🎒</div>
-        </div>
+        </section>
 
-    </div>
-</section>
-        <!-- Bloc 4 : Le Livre d'Or interactif -->
         <section class="card">
-            <h2>✍️ Laisse un mot mémorable !</h2>
-            <p>Ajoute ton vœu de bonheur ou une blague de terminale ici :</p>
-            <textarea id="guestbook-input" placeholder="Un très joyeux anniversaire à notre Hyperbole national ! 🤩🎉
+            <h2>✍️ Le mot de la conceptrice</h2>
+            <div class="message-box-unique">
+                ✨ <strong>Murielle Gloire :</strong>
+                Un très joyeux anniversaire à notre Hyperbole national ! 🤩🎉
 
-Te voilà arrivé au grand niveau 20 ! C’est une étape magique, et quand je vois ton parcours en deuxième année d'informatique, je n'ai aucun doute sur le fait que tu vas accomplir de grandes choses. Merci pour ta gentillesse constante et pour tous ces souvenirs  depuis la terminale. Que cette journée (et toutes celles qui suivent) t'apporte de l'inspiration , de la force pour tes projets et une tonne de bonheur. Bon anniversaire, mon pote ! 🚀🖊️🎹"></textarea>
-            <button onclick="ajouterMessage()">Publier sur le mur 🎉</button>
-            <div id="messages-box" style="margin-top: 15px; font-size: 0.95rem; color: #444; max-height: 120px; overflow-y: auto;"></div>
-        
-            <div id="messages-box" style="margin-top: 15px; max-height: 200px; overflow-y: auto;">
-    <!-- Le message de ton premier pote -->
-    <div style="background: #f0f0f0; padding: 10px; margin-bottom: 8px; border-radius: 5px;">
-        <strong>Z :</strong> Joyeux anniversaire champion ! Cap sur les 20 ans 🚀
-    </div>
+                Te voilà arrivé au grand niveau 20 ! C’est une étape magique, et quand je vois ton parcours en deuxième année d'informatique, je n'ai aucun doute sur le fait que tu vas accomplir de grandes choses. 
 
-    <!-- Le message de ton deuxième pote -->
-    <div style="background: #f0f0f0; padding: 10px; margin-bottom: 8px; border-radius: 5px;">
-        <strong>A :</strong>  🎉
-    </div>
-</div>
+                Merci pour ta gentillesse constante et pour tous ces souvenirs depuis la terminale. Que cette journée (et toutes celles qui suivent) t'apporte de l'inspiration, de la force pour tes projets et une tonne de bonheur. Bon anniversaire, mon pote ! 🚀🖊️🎹
+            </div>
+        </section>
+
+        <section class="card" style="grid-column: 1 / -1;">
+            <h2>🧩 Cryptographie Poétique // Énigmes d'Esprit</h2>
+            <p id="game-instruction">Résous ces trois fragments mêlant logique pure, structures de code et jeux littéraires pour décoder la récompense graphique.</p>
+            
+            <div class="game-zone">
+                <div id="crypto-code-display" class="crypto-box"></div>
+                <div class="game-input-container">
+                    <input type="text" id="player-guess" class="game-input" placeholder="Décode le mot clé unique..." onkeypress="handleKeyPress(event)">
+                    <button onclick="checkWord()">Soumettre l'analyse ⚡</button>
+                </div>
+                <div id="game-feedback" class="game-feedback"></div>
+
+                <div id="art-generator-container">
+                    <h3 style="color:#ff2a6d; margin-bottom:10px;">🌌 Constellation Algorithmique Poétique</h3>
+                    <p style="font-size:0.9rem; color:#666;">Le système a généré une carte stellaire interactive mêlant tes 20 ans, tes mots clés et ta logique.</p>
+                    <canvas id="art-canvas" width="700" height="450"></canvas>
+                </div>
+            </div>
+            <button id="next-stage-btn" style="display: none; margin-top: 15px; width: 100%;" onclick="loadNextStage()">Passer au fragment logique suivant ➡️</button>
         </section>
 
     </main>
 
     <footer>
-        <p>Créé avec passion pour le 18 Juillet —Murielle Gloire NGATSEKE 🚀</p>
+        <p>Créé avec passion pour le 18 Juillet — Murielle Gloire NGATSEKE 🚀</p>
     </footer>
 
-    <!-- Script JavaScript pour le compte à rebours, livre d'or et confettis animés -->
     <script>
         // --- LOGIQUE DU COMPTE À REBOURS ---
         function updateCountdown() {
@@ -405,20 +437,200 @@ Te voilà arrivé au grand niveau 20 ! C’est une étape magique, et quand je v
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // --- LOGIQUE DU LIVRE D'OR ---
-        function ajouterMessage() {
-            const input = document.getElementById("guestbook-input");
-            const box = document.getElementById("messages-box");
-            if(input.value.trim() !== "") {
-                const nouveauMessage = document.createElement("p");
-                nouveauMessage.innerHTML = `✨ <strong>Ami :</strong> ${input.value}`;
-                nouveauMessage.style.borderBottom = "1px solid #ffdfb9";
-                nouveauMessage.style.paddingBottom = "5px";
-                box.appendChild(nouveauMessage);
-                input.value = "";
-                box.scrollTop = box.scrollHeight;
+        // --- LOGIQUE DES ÉNIGMES POÉTIQUES & SYSTÈMES ---
+        const gameStages = [
+            {
+                instruction: "Fragment Logique 1 : Trouve l'acrostiche binaire caché. Analyse le code ci-dessous. En extrayant la première lettre de chaque chaîne qui valide la condition logique (True), tu obtiendras ton propre art.",
+                code: `let collection = [\n  { text: "Histoire ancienne", condition: false },\n  { text: "Syntaxe poétique",  condition: true },\n  { text: "Technologie web",    condition: false },\n  { text: "Trames de récits",   condition: true },\n  { text: "Yttrium pur",        condition: true },\n  { text: "Langage machine",    condition: true },\n  { text: "Écritures vaines",   condition: true }\n];\n// Quel mot est renvoyé ?`,
+                answer: "STYLE",
+                feedback: "Excellent. Ta propre structure stylistique a extrait la quintessence de ce tableau ! ✒️"
+            },
+            {
+                instruction: "Fragment Logique 2 : Métaphore système. En informatique de bas niveau, je sers à stocker temporairement l'état d'un programme (LIFO). En littérature, je désigne l'outil physique du poète qui aligne ses vers. Qui suis-je ?",
+                code: `class Outil {\n  constructor() {\n    this.type = "Structure & Littérature";\n    this.order = "Last In, First Out";\n  }\n}\n// Quel est cet outil homonyme en un seul mot ?`,
+                answer: "PILE",
+                feedback: "Brillant ! La pile d'exécution système rencontre la pile de manuscrits sur le bureau. Logiciel et Poésie se confondent. 🧠"
+            },
+            {
+                instruction: "Fragment Logique 3 : L'énigme de l'infini. En programmation, je casse le flux logique s'il n'y a pas de condition d'arrêt. En poésie, je suis le retour à la ligne qui donne le rythme. Quel concept informatique (en anglais) ou poétique suis-je ?",
+                code: `while(true) {\n  // Poème sans fin qui s'exécute sur tes 20 ans\n  if (inspiration == Math.INFINITY) {\n     // Mot mystère à trouver pour s'échapper de cet état\n     break;\n  }\n}`,
+                answer: "LOOP",
+                feedback: "Parfait ! La boucle est bouclée. Le système est déverrouillé, place à la création visuelle. 🚀"
+            }
+        ];
+
+        let currentStageIndex = 0;
+
+        function loadStage() {
+            const stage = gameStages[currentStageIndex];
+            document.getElementById("game-instruction").innerText = stage.instruction;
+            document.getElementById("crypto-code-display").innerText = stage.code;
+            document.getElementById("player-guess").value = "";
+            const feedbackElement = document.getElementById("game-feedback");
+            feedbackElement.innerText = "";
+            feedbackElement.style.background = "transparent";
+            document.getElementById("next-stage-btn").style.display = "none";
+        }
+
+        function checkWord() {
+            const stage = gameStages[currentStageIndex];
+            const guess = document.getElementById("player-guess").value.trim().toUpperCase();
+            const feedbackElement = document.getElementById("game-feedback");
+
+            if (guess === stage.answer) {
+                feedbackElement.innerText = stage.feedback;
+                feedbackElement.style.color = "#2e7d32";
+                feedbackElement.style.background = "#e8f5e9";
+                document.getElementById("next-stage-btn").style.display = "block";
+            } else {
+                feedbackElement.innerText = "Analyse syntaxique incorrecte. Prends le temps de lire la structure logico-littéraire... 😉";
+                feedbackElement.style.color = "#c62828";
+                feedbackElement.style.background = "#ffebee";
             }
         }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                checkWord();
+            }
+        }
+
+        function loadNextStage() {
+            currentStageIndex++;
+            if (currentStageIndex < gameStages.length) {
+                loadStage();
+            } else {
+                // Succès total : Lancement de la génération d'image algorithmique cosmique
+                document.getElementById("game-instruction").innerText = "🏆 SYSTÈME COMPILÉ AVEC SUCCÈS !";
+                document.getElementById("crypto-code-display").style.display = "none";
+                document.querySelector(".game-input-container").style.display = "none";
+                document.getElementById("game-feedback").innerHTML = "<span style='color:#ff2a6d; font-size:1.2rem;'>Esprit brillant validé. L'algorithme a généré ton univers galactique combinant code et écriture poétique !</span>";
+                document.getElementById("next-stage-btn").style.display = "none";
+                
+                // Afficher et générer l'art Canvas Cosmique
+                document.getElementById("art-generator-container").style.display = "block";
+                generateGenerativeArt();
+            }
+        }
+
+        // --- NOUVEAU MOTEUR DE GÉNÉRATION D'ART COSMIQUE INTERACTIF ("EFFET WAOUH") ---
+        function generateGenerativeArt() {
+            const artCanvas = document.getElementById("art-canvas");
+            const actx = artCanvas.getContext("2d");
+            const cx = artCanvas.width / 2;
+            const cy = artCanvas.height / 2;
+
+            // 1. Fond Espace Profond avec gradient radial hyper saturé
+            let bgGrad = actx.createRadialGradient(cx, cy, 10, cx, cy, cx);
+            bgGrad.addColorStop(0, '#120b24');
+            bgGrad.addColorStop(0.5, '#080512');
+            bgGrad.addColorStop(1, '#020105');
+            actx.fillStyle = bgGrad;
+            actx.fillRect(0, 0, artCanvas.width, artCanvas.height);
+
+            // 2. Génération d'une nuée d'étoiles scintillantes en arrière-plan
+            for (let i = 0; i < 120; i++) {
+                let x = Math.random() * artCanvas.width;
+                let y = Math.random() * artCanvas.height;
+                let radius = Math.random() * 1.5;
+                actx.beginPath();
+                actx.arc(x, y, radius, 0, Math.PI * 2);
+                actx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.7 + 0.3})`;
+                actx.fill();
+            }
+
+            // 3. Dessin des anneaux orbitaux dorés géométriques (Symbole de rigueur logique)
+            actx.shadowBlur = 15;
+            actx.shadowColor = "rgba(212, 175, 55, 0.4)";
+            for (let r = 80; r <= 180; r += 50) {
+                actx.beginPath();
+                actx.arc(cx, cy, r, 0, Math.PI * 2);
+                actx.strokeStyle = "rgba(212, 175, 55, 0.25)";
+                actx.lineWidth = 1.5;
+                actx.setLineDash([5, 15]); // Lignes pointillées technologiques
+                actx.stroke();
+            }
+            actx.setLineDash([]); // Reset dash
+
+            // 4. Flux de Particules Mathématiques et Courbes Nébuleuses (Effet Fluide Cinétique)
+            const particleColors = ["#ff2a6d", "#05d9e8", "#a1ff0a", "#ffea00", "#ff6200"];
+            
+            for (let j = 0; j < 45; j++) {
+                actx.beginPath();
+                let angleOffset = (j * Math.PI * 2) / 45;
+                let startRadius = 40 + Math.random() * 20;
+                
+                let x1 = cx + Math.cos(angleOffset) * startRadius;
+                let y1 = cy + Math.sin(angleOffset) * startRadius;
+                
+                // Points de contrôle de Bézier créant une spirale galactique tourbillonnante
+                let cp1x = cx + Math.cos(angleOffset + 1) * 150;
+                let cp1y = cy + Math.sin(angleOffset + 1) * 150;
+                let cp2x = cx + Math.cos(angleOffset + 2) * 220;
+                let cp2y = cy + Math.sin(angleOffset + 2) * 220;
+                
+                let x2 = cx + Math.cos(angleOffset + 3.5) * (260 + Math.random() * 40);
+                let y2 = cy + Math.sin(angleOffset + 3.5) * (260 + Math.random() * 40);
+
+                actx.moveTo(x1, y1);
+                actx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x2, y2);
+
+                let lineGrad = actx.createLinearGradient(x1, y1, x2, y2);
+                let col = particleColors[j % particleColors.length];
+                lineGrad.addColorStop(0, '#ffffff');
+                lineGrad.addColorStop(0.3, col);
+                lineGrad.addColorStop(1, 'transparent');
+
+                actx.strokeStyle = lineGrad;
+                actx.lineWidth = Math.random() * 2 + 1;
+                actx.globalAlpha = 0.8;
+                actx.stroke();
+            }
+
+            // 5. Intégration Typographique des Mots-Clés dans la Galaxie
+            actx.globalAlpha = 1.0;
+            actx.shadowBlur = 8;
+            const wordsPool = ["HYPERBOLE", "STYLE", "20 ANS", "LOGIQUE", "MANUSCRIT", "PROGRAMME", "BOUCLE", "PROSE", "ALGORITHME", "VERS", "CODE"];
+            
+            wordsPool.forEach((word, index) => {
+                actx.fillStyle = particleColors[index % particleColors.length];
+                actx.shadowColor = actx.fillStyle;
+                
+                // Distribution harmonique le long d'une spirale autour du centre
+                let currentAngle = index * 1.35;
+                let currentDist = 70 + (index * 25);
+                let wx = cx + Math.cos(currentAngle) * currentDist;
+                let wy = cy + Math.sin(currentAngle) * currentDist;
+
+                // Taille proportionnelle à la distance
+                let fontSize = Math.floor(10 + (index * 0.8));
+                actx.font = `bold italic ${fontSize}px Courier New`;
+                actx.textAlign = "center";
+                actx.fillText(word, wx, wy);
+            });
+
+            // 6. Noyau Central Lumineux (Le Coeur de l'Inspiration)
+            actx.beginPath();
+            let coreGrad = actx.createRadialGradient(cx, cy, 0, cx, cy, 35);
+            coreGrad.addColorStop(0, '#ffffff');
+            coreGrad.addColorStop(0.4, '#ffea00');
+            coreGrad.addColorStop(0.8, 'rgba(255, 42, 109, 0.4)');
+            coreGrad.addColorStop(1, 'transparent');
+            actx.arc(cx, cy, 35, 0, Math.PI * 2);
+            actx.fillStyle = coreGrad;
+            actx.shadowBlur = 30;
+            actx.shadowColor = "#ff2a6d";
+            actx.fill();
+
+            // Reset des ombres pour la signature du bas
+            actx.shadowBlur = 0;
+            actx.fillStyle = "rgba(255,255,255,0.4)";
+            actx.font = "11px Segoe UI";
+            actx.textAlign = "left";
+            actx.fillText("// Compilé à l'intersection du Verbe et de la Matrice — Murielle Gloire NGATSEKE", 25, artCanvas.height - 25);
+        }
+
+        loadStage();
 
         // --- ANIMATION DES CONFETTIS EN ARRIÈRE-PLAN ---
         const canvas = document.getElementById("confetti-canvas");
